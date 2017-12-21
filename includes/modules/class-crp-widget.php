@@ -411,18 +411,23 @@ else
 	// Convert term ID to slug
 
 	$terms = explode(",", $term_lookup);
+    // Made an edit here - Steven 12/21/17 11:27AM
 	foreach($terms as $term)
 	{
 		$get_term_name = $wpdb->get_var("SELECT name FROM wp_terms WHERE term_id = $term");
-		$get_term_link = get_term_link((int)$term);
-		$output.= '<li class="cat-item cat-item-2"><a href=" ' . $get_term_link . ' ">' . $get_term_name . '</a></li>';
+        if($get_term_name != 'admin')
+        {
+		    $get_term_link = get_term_link((int)$term);
+            $output.= '<li class="cat-item cat-item-2"><a href=" ' . $get_term_link . ' ">' . $get_term_name . '</a></li>';
+        }
 	}
+    // End Steven Edit
 
 	$output.= '</ul>';
 }
 
 /*********************************************************************************************************/
-/*************************************END modifications EPA***************************************/
+/******************************************END modifications EPA******************************************/
 /*********************************************************************************************************/
 
 			$output .= $args['after_widget'];
